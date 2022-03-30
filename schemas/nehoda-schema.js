@@ -15,4 +15,5 @@ const nehodaSchema = mongoose.Schema({
     },
 })
 
+
 export const nehodaModel = mongoose.model('nehoda', nehodaSchema)
