@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
-console.log(PORT)
+
 mongoose.connect(process.env.MONGODB_URI, () => console.log("connected to db"))
 
 app.use(express.json())
