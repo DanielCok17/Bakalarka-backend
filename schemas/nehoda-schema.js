@@ -45,6 +45,10 @@ const nehodaSchema = mongoose.Schema({
     occupied_seats: {
         type: Number,
         required: true
+    },
+    status: {
+        type: Number,        
+        default: 0
     },         
     created_at: {
         type: Date,

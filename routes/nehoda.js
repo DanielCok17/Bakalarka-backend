@@ -30,6 +30,8 @@ router.post('/',
     body('acceleration', 'not number').not().isEmpty(),
     body('rotation', 'not number').not().isEmpty(),
     body('occupied_seats', 'not number').not().isEmpty().isInt(),
+    body('status', 'not number').not().isEmpty().isInt(),
+
 
     async (req, res) => {
 
@@ -43,7 +45,8 @@ router.post('/',
             speed: req.body.speed,
             acceleration: req.body.acceleration,
             rotation: req.body.rotation,
-            occupied_seats: req.body.occupied_seats
+            occupied_seats: req.body.occupied_seats,
+            status: req.body.status
 
         })
 
@@ -56,6 +59,47 @@ router.post('/',
             res.status(400).json({errors: err})
         }
 })
+
+//Odstránenie nehody
+router.delete('/:postId', async (req, res) => {
+    try{
+        var removeCar = await Nehoda.deleteOne({_id: req.params.postId})
+        if (removeCar.deletedCount) {
+            removeCar = []
+            return res.status(200).json(removeCar)
+        }
+        else {
+            return res.status(404).json({errors: [{msg: `car ${req.params.postId} not found`}]})
+        }
+    } catch(err) {
+        res.status(500).json({errors: err.message})
+    }
+})
+
+//Úprava záznamu nehody
+router.put('/:id', async (req, res) => {
+    try {
+      const car = await Nehoda.findByIdAndUpdate(req.params.id, {
+        latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            vin: req.body.vin,
+            fuel_type: req.body.fuel_type,
+            fuel_amount: req.body.fuel_amount,
+            pedal_position: req.body.pedal_position,
+            speed: req.body.speed,
+            acceleration: req.body.acceleration,
+            rotation: req.body.rotation,
+            occupied_seats: req.body.occupied_seats,
+            status: req.body.status
+      });
+
+      res.json(car);
+
+    } catch(err) {
+        console.error(err.message);
+        res.status(400).json({errors: err.message})
+    }
+});
 
 
 
