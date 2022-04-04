@@ -32,7 +32,6 @@ router.post('/',
     body('occupied_seats', 'not number').not().isEmpty().isInt(),
     body('status', 'not number').not().isEmpty().isInt(),
 
-
     async (req, res) => {
 
         const nehoda = new Nehoda({
