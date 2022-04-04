@@ -20,13 +20,31 @@ router.get('/', async (req, res) => {
 
 //Ukladanie nehody do DB
 router.post('/', 
-    body('mileage', 'not number').not().isEmpty().isInt(),
-    body('price', 'not number').not().isEmpty().isInt(),
+    body('latitude', 'not number').not().isEmpty(),
+    body('longitude', 'not number').not().isEmpty(),
+    body('vin', 'not number').not().isEmpty().isString(),
+    body('fuel_type', 'not number').not().isEmpty().isInt(),
+    body('fuel_amount', 'not number').not().isEmpty().isInt(),
+    body('pedal_position', 'not number').not().isEmpty().isInt(),
+    body('speed', 'not number').not().isEmpty().isInt(),
+    body('acceleration', 'not number').not().isEmpty(),
+    body('rotation', 'not number').not().isEmpty(),
+    body('occupied_seats', 'not number').not().isEmpty().isInt(),
+
     async (req, res) => {
 
         const nehoda = new Nehoda({
-            mileage: req.body.mileage,
-            price: req.body.price
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            vin: req.body.vin,
+            fuel_type: req.body.fuel_type,
+            fuel_amount: req.body.fuel_amount,
+            pedal_position: req.body.pedal_position,
+            speed: req.body.speed,
+            acceleration: req.body.acceleration,
+            rotation: req.body.rotation,
+            occupied_seats: req.body.occupied_seats
+
         })
 
         try{
