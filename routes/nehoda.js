@@ -1,6 +1,6 @@
 import express from 'express'
 import {nehodaModel as Nehoda} from '../schemas/nehoda-schema.js'
-import { check, body, validationResult } from 'express-validator'
+import {body, validationResult } from 'express-validator'
 
 export const router = express.Router()
 
