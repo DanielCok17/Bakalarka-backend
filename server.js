@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 mongoose.connect(process.env.MONGODB_URI, () => console.log("connected to db"))
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/bakalarka/nehoda', nehodaRouter);
 
