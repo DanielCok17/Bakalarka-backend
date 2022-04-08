@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import {router as nehodaRouter} from './routes/nehoda.js'
 import {createRequire } from "module";
+import cors from 'cors';
 const require = createRequire(import.meta.url);
 
 const app = express()
