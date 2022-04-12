@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/bakalarka/nehoda', nehodaRouter);
-app.use('/api/autobazar/users', usersRouter);
+app.use('/api/bakalarka/users', usersRouter);
 
 
 app.listen(PORT)
