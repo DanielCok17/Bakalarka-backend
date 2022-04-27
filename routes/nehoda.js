@@ -75,7 +75,7 @@ router.delete('/:postId', async (req, res) => {
     }
 })
 
-//Odstránenie nehody
+//Odstránenie všetkých nehod
 router.delete('/vsetky', async (req, res) => {
     try{
         var removeCar = await Nehoda.deleteMany()
