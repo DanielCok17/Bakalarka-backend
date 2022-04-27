@@ -18,14 +18,6 @@ const nehodaSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    fuel_type: {
-        type: Number,
-        required: true
-    },
-    fuel_amount: {
-        type: Number,
-        required: true
-    },
     pedal_position: {
         type: Number,
         required: true

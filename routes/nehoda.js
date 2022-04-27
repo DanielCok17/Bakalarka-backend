@@ -23,8 +23,6 @@ router.post('/',
     body('latitude', 'not number').not().isEmpty(),
     body('longitude', 'not number').not().isEmpty(),
     body('vin', 'not number').not().isEmpty().isString(),
-    body('fuel_type', 'not number').not().isEmpty().isInt(),
-    body('fuel_amount', 'not number').not().isEmpty().isInt(),
     body('pedal_position', 'not number').not().isEmpty().isInt(),
     body('speed', 'not number').not().isEmpty().isInt(),
     body('acceleration', 'not number').not().isEmpty(),
@@ -38,8 +36,6 @@ router.post('/',
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             vin: req.body.vin,
-            fuel_type: req.body.fuel_type,
-            fuel_amount: req.body.fuel_amount,
             pedal_position: req.body.pedal_position,
             speed: req.body.speed,
             acceleration: req.body.acceleration,
@@ -78,13 +74,14 @@ router.delete('/:postId', async (req, res) => {
 //Odstránenie všetkých nehod
 router.delete('/vsetky', async (req, res) => {
     try{
-        var removeCar = await Nehoda.deleteMany()
+        var removeCar = await Nehoda.deleteMany({})
+        console.log(removeCar)
         if (removeCar.deletedCount) {
             removeCar = []
             return res.status(200).json(removeCar)
         }
         else {
-            return res.status(404).json({errors: [{msg: `car ${req.params.postId} not found`}]})
+            return res.status(404).json({errors: [{msg:  "not found"}]})
         }
     } catch(err) {
         res.status(500).json({errors: err.message})
@@ -98,8 +95,6 @@ router.put('/:id', async (req, res) => {
         latitude: req.body.latitude,
             longitude: req.body.longitude,
             vin: req.body.vin,
-            fuel_type: req.body.fuel_type,
-            fuel_amount: req.body.fuel_amount,
             pedal_position: req.body.pedal_position,
             speed: req.body.speed,
             acceleration: req.body.acceleration,
