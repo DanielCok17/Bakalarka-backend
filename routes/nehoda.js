@@ -75,6 +75,22 @@ router.delete('/:postId', async (req, res) => {
     }
 })
 
+//Odstránenie nehody
+router.delete('/vsetky', async (req, res) => {
+    try{
+        var removeCar = await Nehoda.deleteMany()
+        if (removeCar.deletedCount) {
+            removeCar = []
+            return res.status(200).json(removeCar)
+        }
+        else {
+            return res.status(404).json({errors: [{msg: `car ${req.params.postId} not found`}]})
+        }
+    } catch(err) {
+        res.status(500).json({errors: err.message})
+    }
+})
+
 //Úprava záznamu nehody
 router.put('/:id', async (req, res) => {
     try {
