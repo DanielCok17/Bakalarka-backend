@@ -27,7 +27,6 @@ router.post('/',
     body('speed', 'not number').not().isEmpty().isInt(),
     body('acceleration', 'not number').not().isEmpty(),
     body('rotation', 'not number').not().isEmpty(),
-    body('occupied_seats', 'not number').not().isEmpty().isInt(),
     body('status', 'not number').not().isEmpty().isInt(),
 
     async (req, res) => {
@@ -41,7 +40,12 @@ router.post('/',
             acceleration: req.body.acceleration,
             rotation: req.body.rotation,
             occupied_seats: req.body.occupied_seats,
-            status: req.body.status
+            status: req.body.status,
+            on_roof: req.body.on_roof,
+            rotation_count: req.body.rotation_count,
+            inpack_site: req.body.inpack_site,
+            temperature: req.body.temperature,
+            gforce: req.body.gforce,
 
         })
 
@@ -53,22 +57,6 @@ router.post('/',
         } catch (err) {
             res.status(400).json({errors: err})
         }
-})
-
-//Odstránenie nehody
-router.delete('/:postId', async (req, res) => {
-    try{
-        var removeCar = await Nehoda.deleteOne({_id: req.params.postId})
-        if (removeCar.deletedCount) {
-            removeCar = []
-            return res.status(200).json(removeCar)
-        }
-        else {
-            return res.status(404).json({errors: [{msg: `car ${req.params.postId} not found`}]})
-        }
-    } catch(err) {
-        res.status(500).json({errors: err.message})
-    }
 })
 
 //Odstránenie všetkých nehod
@@ -100,7 +88,12 @@ router.put('/:id', async (req, res) => {
             acceleration: req.body.acceleration,
             rotation: req.body.rotation,
             occupied_seats: req.body.occupied_seats,
-            status: req.body.status
+            status: req.body.status,
+            on_roof: req.body.on_roof,
+            rotation_count: req.body.rotation_count,
+            inpack_site: req.body.inpack_site,
+            temperature: req.body.temperature,
+            gforce: req.body.gforce,
       });
 
       res.json(car);

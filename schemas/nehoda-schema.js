@@ -35,6 +35,26 @@ const nehodaSchema = mongoose.Schema({
         required: true
     },     
     occupied_seats: {
+        type: Array,
+        required: true
+    },
+    on_roof: {
+        type: Boolean,
+        required: true
+    },
+    rotation_count: {
+        type: Number,
+        required: true
+    },
+    inpack_site: {
+        type: Number,
+        required: true
+    },
+    temperature: {
+        type: Number,
+        required: true
+    },
+    gforce: {
         type: Number,
         required: true
     },
@@ -47,7 +67,6 @@ const nehodaSchema = mongoose.Schema({
         default: Date.now
     },
 })
-
 
 
 export const nehodaModel = mongoose.model('nehoda', nehodaSchema)
