@@ -18,6 +18,21 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:postId', async (req, res) => {
+    try{
+        const users = await Nehoda.find({_id: req.params.postId})
+        if (!users.length) {
+            return res.status(404).json({errors: [{msg: `Nehoda ${req.params.postId} not found`}]})
+        }
+        else {
+            res.json(users)
+        }
+        
+    } catch(err) {
+        res.status(500).json({errors: err.message})
+    }
+})
+
 //Ukladanie nehody do DB
 router.post('/', 
     body('latitude', 'not number').not().isEmpty(),
@@ -97,6 +112,21 @@ router.put('/:id', async (req, res) => {
       });
 
       res.json(car);
+
+    } catch(err) {
+        console.error(err.message);
+        res.status(400).json({errors: err.message})
+    }
+});
+
+//Úprava záznamu nehody
+router.put('/:id/edit', async (req, res) => {
+    try {
+      const car = await Nehoda.findByIdAndUpdate(req.params.id, {
+            status: req.body.status
+      });
+      res.json(car);
+      console.log("som tu");
 
     } catch(err) {
         console.error(err.message);
