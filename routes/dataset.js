@@ -20,37 +20,53 @@ router.get('/:postId', async (req, res) => {
     }
 })
 
-//Registrácia pužívateľa
+//Zapis datasetu
 router.post('/', 
-    body('email', 'not string').not().isEmpty().isEmail(),
-    body('password', 'not string').not().isEmpty().isString(),
+    body('latitude', 'not number').not().isEmpty(),
+    body('longitude', 'not number').not().isEmpty(),
+    body('vin', 'not number').not().isEmpty().isString(),
+    body('pedal_position', 'not number').not().isEmpty().isInt(),
+    body('speed', 'not number').not().isEmpty().isInt(),
+    body('acceleration', 'not number').not().isEmpty(),
+    body('rotation', 'not number').not().isEmpty(),
+    body('status', 'not number').not().isEmpty().isInt(),
+    body('fire_cars', 'not number').not().isEmpty().isInt(),
+    body('police_cars', 'not number').not().isEmpty().isInt(),
+    body('ambulance_cars', 'not number').not().isEmpty().isInt(),
+    body('gforce', 'not number').not().isEmpty().isInt(),
+    body('temperature', 'not number').not().isEmpty().isInt(),
+    body('inpack_site', 'not number').not().isEmpty().isInt(),
+
     async (req, res) => {
 
-        const user = new Dataset({
-            email: req.body.email,
-            password: req.body.password
+        const nehoda = new Dataset({
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            vin: req.body.vin,
+            pedal_position: req.body.pedal_position,
+            speed: req.body.speed,
+            acceleration: req.body.acceleration,
+            rotation: req.body.rotation,
+            occupied_seats: req.body.occupied_seats,
+            status: req.body.status,
+            on_roof: req.body.on_roof,
+            rotation_count: req.body.rotation_count,
+            inpack_site: req.body.inpack_site,
+            temperature: req.body.temperature,
+            gforce: req.body.gforce,
+            fire_cars: req.body.fire_cars,
+            police_cars: req.body.police_cars,
+            ambulance_cars: req.body.ambulance_cars,
+
         })
-        
+
         try{
             validationResult(req).throw();
-            const email = await Dataset.findOne({email: req.body.email})
-            const password = await Dataset.findOne({password: req.body.password})
-
-            if(email){
-                return res.status(400).json({errors: [{msg: "User with this email already exists"}]})    
-            }
-
-            if(password){
-                return res.status(400).json({errors: [{msg: "Password already used"}]})    
-            }
-
-            await user.save()
-            res.status(201).json({
-                msg: 'User added successfully!'
-              });
+            const savedNehoda = await nehoda.save()
+            res.status(201).json(savedNehoda)
 
         } catch (err) {
-            res.status(400).json({errors: err.array()})
+            res.status(400).json({errors: err})
         }
 })
 

@@ -1,30 +1,74 @@
 import mongoose from 'mongoose'
 
 const datasetSchema = mongoose.Schema({
-    first_name: {
-        type: String,
-        required: false
+    latitude: {
+        type: FloatType,
+        required: true
     },
-    last_name: {
-        type: String,
-        required: false
+    longitude: {
+        type: Number,
+        required: true
     },
-    email: {
+    vin: {
         type: String,
         required: true
     },
-    phone_number: {
-        type: String,
-        required: false
+    pedal_position: {
+        type: Number,
+        required: true
     },
-    phone_numbers: {
+    speed: {
+        type: Number,
+        required: true
+    },
+    acceleration: {
+        type: Number,
+        required: true
+    },  
+    rotation: {
+        type: Number,
+        required: true
+    },     
+    occupied_seats: {
         type: Array,
-        required: false
-    },
-    password: {
-        type: String,
         required: true
     },
+    on_roof: {
+        type: Boolean,
+        required: true
+    },
+    rotation_count: {
+        type: Number,
+        required: true
+    },
+    inpack_site: {
+        type: Number,
+        required: true
+    },
+    temperature: {
+        type: Number,
+        required: true
+    },
+    gforce: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: Number,        
+        default: 0
+    },   
+    fire_cars: {
+        type: Number,        
+        default: 0
+    },     
+    police_cars: {
+        type: Number,        
+        default: 0
+    },     
+    ambulance_cars: {
+        type: Number,        
+        default: 0
+    },           
     created_at: {
         type: Date,
         default: Date.now
