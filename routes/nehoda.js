@@ -126,7 +126,6 @@ router.put('/:id/edit', async (req, res) => {
             status: req.body.status
       });
       res.json(car);
-      console.log("som tu");
 
     } catch(err) {
         console.error(err.message);
