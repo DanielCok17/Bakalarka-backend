@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const datasetSchema = mongoose.Schema({
     latitude: {
-        type: FloatType,
+        type: Number,
         required: true
     },
     longitude: {
