@@ -4,12 +4,25 @@ import { check, body, validationResult } from 'express-validator'
 
 export const router = express.Router()
 
-//Informácie o užívateľovi
+//Dataset
+router.get('/', async (req, res) => {
+    const page = req.query.page > 0 ? req.query.page : 1
+    const per_page = req.query.per_page > 0 ? req.query.per_page : 10
+    const order_type = req.query.order_type == 'asc' ? 1 : -1
+    
+    try {
+        const nehody = await Dataset.find().sort({ created_at: order_type }).limit(Number(per_page)).skip((page - 1) * per_page)
+        res.json(nehody)
+    } catch (err) {
+        res.status(500).json({errors: err.message})
+    }
+})
+
 router.get('/:postId', async (req, res) => {
     try{
-        const users = await Dataset.find({_id: req.params.postId})
+        const users = await Nehoda.find({_id: req.params.postId})
         if (!users.length) {
-            return res.status(404).json({errors: [{msg: `User ${req.params.postId} not found`}]})
+            return res.status(404).json({errors: [{msg: `Nehoda ${req.params.postId} not found`}]})
         }
         else {
             res.json(users)
