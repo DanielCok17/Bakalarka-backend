@@ -30,12 +30,6 @@ router.post('/',
     body('acceleration', 'not number').not().isEmpty(),
     body('rotation', 'not number').not().isEmpty(),
     body('status', 'not number').not().isEmpty().isInt(),
-    body('fire_cars', 'not number').not().isEmpty().isInt(),
-    body('police_cars', 'not number').not().isEmpty().isInt(),
-    body('ambulance_cars', 'not number').not().isEmpty().isInt(),
-    body('gforce', 'not number').not().isEmpty().isInt(),
-    body('temperature', 'not number').not().isEmpty().isInt(),
-    body('inpack_site', 'not number').not().isEmpty().isInt(),
 
     async (req, res) => {
 
