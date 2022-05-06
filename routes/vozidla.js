@@ -5,13 +5,10 @@ import { check, body, validationResult } from 'express-validator'
 export const router = express.Router()
 
 //Vozidla
-router.get('/', async (req, res) => {
-    const page = req.query.page > 0 ? req.query.page : 1
-    const per_page = req.query.per_page > 0 ? req.query.per_page : 10
-    const order_type = req.query.order_type == 'asc' ? 1 : -1
+router.get('/', async (req, res) => {   
 
     try {
-        const nehody = await Vozidla.find().sort({ created_at: order_type }).limit(Number(per_page)).skip((page - 1) * per_page)
+        const nehody = await Vozidla.find()
         res.json(nehody)
     } catch (err) {
         res.status(500).json({errors: err.message})
