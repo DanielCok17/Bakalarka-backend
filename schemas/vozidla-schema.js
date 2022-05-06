@@ -3,11 +3,11 @@ import mongoose from 'mongoose'
 const vozidlaSchema = mongoose.Schema({
     type: {
         type: String,
-        required: false
+        required: true
     },
-    id: {
+    num: {
         type: Number,
-        required: false
+        required: true
     },
     availability: {
         type: Boolean,

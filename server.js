@@ -14,15 +14,14 @@ const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
-
 mongoose.connect(process.env.MONGODB_URI, () => console.log("connected to db"))
 
 app.use(express.json())
 app.use(cors())
 
+app.use('/api/bakalarka/vozidla', vozidlaRouter);
 app.use('/api/bakalarka/nehoda', nehodaRouter);
 app.use('/api/bakalarka/users', usersRouter);
 app.use('/api/bakalarka/dataset', datasetRouter);
-app.use('/api/bakalarka/vozidla', vozidlaRouter);
 
 app.listen(PORT)

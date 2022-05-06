@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const page = req.query.page > 0 ? req.query.page : 1
     const per_page = req.query.per_page > 0 ? req.query.per_page : 10
     const order_type = req.query.order_type == 'asc' ? 1 : -1
-    
+
     try {
         const nehody = await Vozidla.find().sort({ created_at: order_type }).limit(Number(per_page)).skip((page - 1) * per_page)
         res.json(nehody)
@@ -24,7 +24,7 @@ router.post('/',
     async (req, res) => {
         const user = new Vozidla({
             type: req.body.type,
-            id: req.body.id,
+            num: req.body.num,
             availability: req.body.availability
         })        
         try{
@@ -32,22 +32,38 @@ router.post('/',
 
             await user.save()
             res.status(201).json({
-                msg: 'User added successfully!'
+                msg: 'Vehicle added successfully!'
               });
 
-        } catch (err) {
-            res.status(400).json({errors: err.array()})
+        } catch (err) {            
+            console.error(err.message);
+            res.status(400).json({errors: err.message})
         }
 })
 
-
+//Odstránenie inzerátu
+router.delete('/:postId', async (req, res) => {
+    try{
+        var removeCar = await Vozidla.deleteOne({_id: req.params.postId})
+        
+        if (removeCar.deletedCount) {
+            removeCar = []
+            return res.status(200).json(removeCar)
+        }
+        else {
+            return res.status(404).json({errors: [{msg: `Car ${req.params.postId} not found`}]})
+        }
+    } catch(err) {
+        res.status(500).json({errors: err.message})
+    }
+})
 
 //Úprava jednotliveho vozidla
 router.put('/:id', async (req, res) => {
     try {
       const users = await Vozidla.findByIdAndUpdate(req.params.id, {
             type: req.body.type,
-            id: req.body.id,
+            num: req.body.num,
             availability: req.body.availability
       });
 
