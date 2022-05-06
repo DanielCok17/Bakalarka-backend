@@ -18,6 +18,21 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:postId', async (req, res) => {
+    try{
+        const users = await Vozidla.find({_id: req.params.postId})
+        if (!users.length) {
+            return res.status(404).json({errors: [{msg: `Nehoda ${req.params.postId} not found`}]})
+        }
+        else {
+            res.json(users)
+        }
+        
+    } catch(err) {
+        res.status(500).json({errors: err.message})
+    }
+})
+
 
 //Registrácia pužívateľa
 router.post('/', 
