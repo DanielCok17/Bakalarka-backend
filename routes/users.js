@@ -92,8 +92,7 @@ router.post('/login',  async (req, res) => {
             }
 
         } catch (err) {
-            res.status(400).json({errors: err.array()})
-        }
+            res.status(400).json({errors: err.message})}
 })
 
 //Úprava záznamu nehody
