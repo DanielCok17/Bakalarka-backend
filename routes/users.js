@@ -51,15 +51,10 @@ router.post('/',
         try{
             validationResult(req).throw();
             const email = await User.findOne({email: req.body.email})
-            //const password = await User.findOne({password: req.body.password})
 
             if(email){
                 return res.status(400).json({errors: [{msg: "User with this email already exists"}]})    
-            }
-
-            if(password){
-                return res.status(400).json({errors: [{msg: "Password already used"}]})    
-            }
+            }          
 
             await user.save()
             res.status(201).json({
@@ -70,6 +65,7 @@ router.post('/',
             res.status(400).json({errors: err.message})
         }
 })
+
 
 //Prihlásenie používateľa
 router.post('/login',  async (req, res) => {
