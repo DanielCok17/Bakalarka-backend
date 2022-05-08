@@ -43,7 +43,7 @@ router.post('/',
         
         const users = await Zaznam.findOne({id_nehody: req.body.id_nehody})
 
-        if(users == null){
+        if(users != null){
             return res.status(400).json({errors: [{msg: "Nehoda už riešená"}]})
         }
         
@@ -96,21 +96,4 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-//Odstránenie všetkých nehod
-router.delete('/vsetky', async (req, res) => {
-    console.log("som tu")
-    try{
-        var removeCar = await Zaznam.deleteMany({})
-        console.log(removeCar)
-        if (removeCar.deletedCount) {
-            removeCar = []
-            return res.status(200).json(removeCar)
-        }
-        else {
-            return res.status(404).json({errors: [{msg:  "not found"}]})
-        }
-    } catch(err) {
-        res.status(500).json({errors: err.message})
-    }
-})
 
