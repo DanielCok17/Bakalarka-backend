@@ -67,32 +67,32 @@ router.post('/',
               });
 
         } catch (err) {
-            res.status(400).json({errors: err.array()})
+            res.status(400).json({errors: err.message})
         }
 })
 
 //Prihlásenie používateľa
 router.post('/login',  async (req, res) => {
 
-        const users = await User.findOne({email: req.body.email})
+    const users = await User.findOne({email: req.body.email})
 
-        if(users == null){
-            return res.status(400).json({errors: [{msg: "User was not found"}]})
+    if (users == null) {
+        return res.status(400).json({errors: [{msg: "User was not found"}]})
+    }
+    
+    try{
+        validationResult(req).throw();
+
+        if (req.body.password == users.password) {
+            res.json({id : users['_id'] })
         }
-        
-        try{
-            validationResult(req).throw();
+        else{
+            res.status(403).json({errors: [{msg: "Unsuccessfully logged in"}]})
+        }
 
-            if(req.body.password == users.password){
-                //console.log(users['_id'])
-                res.json({id : users['_id'] })
-            }
-            else{
-                res.status(403).json({errors: [{msg: "Unsuccessfully logged in"}]})
-            }
-
-        } catch (err) {
-            res.status(400).json({errors: err.message})}
+    } catch (err) {
+        res.status(400).json({errors: err.message})
+    }
 })
 
 //Úprava záznamu nehody
