@@ -25,21 +25,13 @@ const nehodaSchema = mongoose.Schema({
     speed: {
         type: Number,
         required: true
-    },
-    acceleration: {
-        type: Number,
-        required: true
     },  
-    rotation: {
-        type: Number,
-        required: true
-    },     
     occupied_seats: {
         type: Array,
         required: true
     },
-    on_roof: {
-        type: Boolean,
+    car_position: {
+        type: Array,
         required: true
     },
     rotation_count: {
